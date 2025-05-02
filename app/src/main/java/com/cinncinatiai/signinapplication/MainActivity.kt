@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         MainPresenter()
     }
 
-
     private val userText: EditText by lazy {
         findViewById(R.id.user_text)
     }
@@ -38,8 +37,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-
 
         signinButton.setOnClickListener {
             val email: String = userText.text.toString()

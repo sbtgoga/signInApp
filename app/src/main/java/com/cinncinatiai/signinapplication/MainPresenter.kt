@@ -3,9 +3,9 @@ package com.cinncinatiai.signinapplication
 class MainPresenter {
 
     fun signInGranted(email: String, password: String): Boolean {
-        if (emailValidation(email) && passwordValidation(password)){
+        if (emailValidation(email) && passwordValidation(password)) {
             return true
-        } else{
+        } else {
             return false
         }
     }
@@ -19,7 +19,7 @@ class MainPresenter {
     fun passwordValidation(password: String): Boolean {
         if (password.length >= 8) {
             return true
-        } else{
+        } else {
             return false
         }
     }
