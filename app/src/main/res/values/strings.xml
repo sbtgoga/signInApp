@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SignInApplication</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="welcome">Welcome to the app!!</string>
+    <string name="errorMessage">Give me a valid user and password</string>
 </resources>
