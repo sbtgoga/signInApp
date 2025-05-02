@@ -1,5 +1,6 @@
 package com.cinncinatiai.signinapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -31,11 +32,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+        val switchIntent = Intent(this@MainActivity, Welcome::class.java)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
 
         signinButton.setOnClickListener {
             val email: String = userText.text.toString()
@@ -43,7 +47,10 @@ class MainActivity : AppCompatActivity() {
             Log.i("MainActivity", "${email} and ${password}")
 
             if (presenter.signInGranted(email, password)) {
-                TODO()
+                startActivity(switchIntent)
+                userText.text.clear()
+                passwordText.text.clear()
+
             } else {
                 Toast.makeText(
                     this,
