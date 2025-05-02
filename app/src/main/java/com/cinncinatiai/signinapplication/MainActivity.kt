@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     private val presenter: MainPresenter by lazy {
         MainPresenter()
     }
-
     private val userText: EditText by lazy {
         findViewById(R.id.user_text)
     }
@@ -42,12 +41,10 @@ class MainActivity : AppCompatActivity() {
             val email: String = userText.text.toString()
             val password: String = passwordText.text.toString()
             Log.i("MainActivity", "${email} and ${password}")
-
             if (presenter.signInGranted(email, password)) {
                 startActivity(switchIntent)
                 userText.text.clear()
                 passwordText.text.clear()
-
             } else {
                 Toast.makeText(
                     this,
@@ -56,6 +53,5 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
-
     }
 }
