@@ -24,13 +24,10 @@ class MainPresenter {
     }
 
     private fun isPasswordValid(password: String) = password.length >= minimumPasswordLength
-
-
 }
 
 sealed class MainUIState {
     object None : MainUIState()
     data class AccessGranted(val access: Boolean) : MainUIState()
-    //Data holds data
     data class Error(val message: String) : MainUIState()
 }
