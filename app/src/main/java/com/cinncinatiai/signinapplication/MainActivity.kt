@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
     private val presenter: MainPresenter by lazy {
         MainPresenter()
     }
-    private val userText: EditText by lazy {
-        findViewById(R.id.user_text)
+    private val emailText: EditText by lazy {
+        findViewById(R.id.email_text)
     }
     private val passwordText: EditText by lazy {
         findViewById(R.id.password_text)
@@ -30,28 +30,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        val switchIntent = Intent(this@MainActivity, Welcome::class.java)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        presenter.uiState.observe(this) { onUIState(it) }
+        signinButton.setOnClickListener {
+            val email = emailText.text.toString()
+            val password = passwordText.text.toString()
+            presenter.signInGranted(email,password)
+
+        }
+    }
+
+    private fun onUIState(uiState: MainUIState) {
+        when (uiState) {
+
+            MainUIState.None -> {}
+            is MainUIState.AccessGranted -> {
+                switchActivity()
+                emailText.text.clear()
+                passwordText.text.clear()
+            }
+            is MainUIState.Error -> Toast.makeText(this, R.string.errorMessage, Toast.LENGTH_LONG).show()
         }
 
-        signinButton.setOnClickListener {
-            val email: String = userText.text.toString()
-            val password: String = passwordText.text.toString()
-            Log.i("MainActivity", "${email} and ${password}")
-            if (presenter.signInGranted(email, password)) {
-                startActivity(switchIntent)
-                userText.text.clear()
-                passwordText.text.clear()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Give me a valid user and password",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
+    }
+
+    private fun switchActivity(){
+        val switchIntent = Intent(this@MainActivity, Welcome::class.java)
+        startActivity(switchIntent)
     }
 }
